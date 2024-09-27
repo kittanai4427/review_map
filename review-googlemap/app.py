@@ -12,7 +12,7 @@ CACHE_FILE = 'reviews_cache.json'
 CACHE_DURATION = 6 * 60 * 60  # 6 ชั่วโมง
 
 def get_reviews_data(total_reviews_needed=50):
-    # ตรวจสอบว่ามีไฟล์แคชและยังไม่หมดอายุหรือไม่
+
     if os.path.exists(CACHE_FILE):
         cache_mtime = os.path.getmtime(CACHE_FILE)
         if time.time() - cache_mtime < CACHE_DURATION:
@@ -20,7 +20,7 @@ def get_reviews_data(total_reviews_needed=50):
                 all_reviews = json.load(f)
                 return all_reviews[:total_reviews_needed]
 
-    # ถ้าไม่มีไฟล์แคชหรือหมดอายุแล้ว ดึงข้อมูลใหม่
+ 
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
     }
@@ -32,7 +32,7 @@ def get_reviews_data(total_reviews_needed=50):
     all_reviews = []
     translator = Translator()
 
-    # ลบไฟล์แคชเพื่อดึงข้อมูลใหม่ (ในระหว่างการทดสอบ)
+    
     if os.path.exists(CACHE_FILE):
         os.remove(CACHE_FILE)
 
@@ -41,12 +41,12 @@ def get_reviews_data(total_reviews_needed=50):
         response = requests.get(url, headers=headers)
         soup = BeautifulSoup(response.content, 'html.parser')
 
-        # Extract next_page_token
+      
         token_element = soup.select_one('.gws-localreviews__general-reviews-block')
         if token_element:
             token = token_element.get('data-next-page-token', '')
 
-        # Extract user reviews
+       
         reviews_elements = soup.select('.gws-localreviews__google-review')
         if not reviews_elements:
             break
@@ -58,7 +58,7 @@ def get_reviews_data(total_reviews_needed=50):
             review_text = el.select_one('.Jtu6Td').text.strip() if el.select_one('.Jtu6Td') else ''
             reviews_texts.append(review_text)
 
-            # ดึงข้อมูลเวลา
+         
             time_element = el.select_one('.ODSEW-ShBeI-RgZmSc-date')  # ปรับคลาสตามโครงสร้าง HTML ปัจจุบัน
             if not time_element:
                 time_element = el.select_one('.rsqaWe')
@@ -68,7 +68,7 @@ def get_reviews_data(total_reviews_needed=50):
                 time_element = el.select_one('.DZSIDd')
             review_time = time_element.text.strip() if time_element else ''
 
-            # สำหรับดีบัก
+        
             print(f"Review time: {review_time}")
 
             user_data = {
@@ -77,17 +77,17 @@ def get_reviews_data(total_reviews_needed=50):
                 'thumbnail': el.select_one('.lDY1rd')['src'] if el.select_one('.lDY1rd') else '',
                 'numOfreviews': el.select_one('.Msppse').text.strip() if el.select_one('.Msppse') else '',
                 'rating': el.select_one('.EBe2gf')['aria-label'] if el.select_one('.EBe2gf') else '',
-                'time': review_time,  # เพิ่มข้อมูลเวลาเข้าไปใน user_data
+                'time': review_time, 
             }
             user_data_list.append(user_data)
 
-        # แปลภาษาแบบแบตช์
+   
         try:
             translations = translator.translate(reviews_texts, dest='th')
             if not isinstance(translations, list):
                 translations = [translations]
         except Exception:
-            translations = reviews_texts  # ถ้าแปลไม่สำเร็จ ใช้ข้อความต้นฉบับ
+            translations = reviews_texts 
 
         for idx, user_data in enumerate(user_data_list):
             user_data['review'] = translations[idx].text if hasattr(translations[idx], 'text') else translations[idx]
@@ -95,11 +95,11 @@ def get_reviews_data(total_reviews_needed=50):
             if len(all_reviews) >= total_reviews_needed:
                 break
 
-        # ถ้าไม่มี token ถัดไป ออกจาก loop
+        
         if not token:
             break
 
-    # บันทึกลงไฟล์แคช
+  
     with open(CACHE_FILE, 'w', encoding='utf-8') as f:
         json.dump(all_reviews, f, ensure_ascii=False)
 
