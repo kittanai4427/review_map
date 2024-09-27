@@ -1,4 +1,4 @@
-/* ส่วนที่มีอยู่แล้ว */
+
 * {
     margin: 0;
     padding: 0;
@@ -29,7 +29,7 @@ body {
     margin-bottom: -100px;
 }
 
-/* ปรับแต่ง .carousel และ .slide */
+
 .carousel {
     display: flex;
     overflow: hidden;
@@ -38,14 +38,14 @@ body {
 }
 
 .slide {
-    display: none; /* ซ่อนสไลด์ทั้งหมดโดยค่าเริ่มต้น */
+    display: none;
     min-width: 100%;
     height: 665px;
     justify-content: center;
     z-index: -1;
 }
 .slide.active {
-    display: flex; /* แสดงสไลด์ที่มีคลาส 'active' */
+    display: flex; 
 }
 
 .left-card, .right-cards {
@@ -64,7 +64,7 @@ body {
     gap: 40px;
 }
 
-/* ปรับแต่ง .card */
+
 .card {
     background-color: #f6f7f674;
     border-radius: 10px;
@@ -72,9 +72,9 @@ body {
     padding: 30px;
     display: flex;
     flex-direction: column;
-    opacity: 0; /* เริ่มต้นด้วยการซ่อนการ์ด */
-    transform: translateY(20px); /* เลื่อนการ์ดลงเล็กน้อย */
-    transition: opacity 1s ease-out, transform 1s ease-out; /* กำหนดการทรานซิชัน */
+    opacity: 0; 
+    transform: translateY(20px); 
+    transition: opacity 1s ease-out, transform 1s ease-out; 
 }
 
 .card.fade-in {
@@ -173,10 +173,10 @@ body {
 
     }
     .slide {
-        flex-direction: row; /* แสดงการ์ดในแนวนอน */
-        align-items: center; /* จัดการ์ดให้อยู่กึ่งกลางในแนวตั้ง */
-        justify-content: center; /* ถ้าต้องการจัดกึ่งกลางในแนวนอนด้วย */
-        height: 800px; /* กำหนดความสูงคงที่ */
+        flex-direction: row; 
+        align-items: center; 
+        justify-content: center; 
+        height: 800px; 
     }
     .left-card, .right-cards {
         width: 50%;
@@ -206,7 +206,7 @@ body {
     }
 }
 
-/* Media Queries สำหรับหน้าจอขนาดเล็ก */
+
 @media screen and (max-width: 600px) {
     body {
         display: block;
