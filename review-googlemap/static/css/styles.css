@@ -1,0 +1,265 @@
+/* ส่วนที่มีอยู่แล้ว */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Prompt", sans-serif;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 35px;
+}
+
+.wrapper {
+    position: relative;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.heading {
+    font-size: 32px;
+    color: #000;
+    font-weight: 600;
+    text-align: left;
+    margin-bottom: -100px;
+}
+
+/* ปรับแต่ง .carousel และ .slide */
+.carousel {
+    display: flex;
+    overflow: hidden;
+    scroll-behavior: smooth;
+    width: 100%;
+}
+
+.slide {
+    display: none; /* ซ่อนสไลด์ทั้งหมดโดยค่าเริ่มต้น */
+    min-width: 100%;
+    height: 665px;
+    justify-content: center;
+    z-index: -1;
+}
+.slide.active {
+    display: flex; /* แสดงสไลด์ที่มีคลาส 'active' */
+}
+
+.left-card, .right-cards {
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.left-card {
+    margin-right: 10px;
+}
+
+.right-cards {
+    gap: 40px;
+}
+
+/* ปรับแต่ง .card */
+.card {
+    background-color: #f6f7f674;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    opacity: 0; /* เริ่มต้นด้วยการซ่อนการ์ด */
+    transform: translateY(20px); /* เลื่อนการ์ดลงเล็กน้อย */
+    transition: opacity 1s ease-out, transform 1s ease-out; /* กำหนดการทรานซิชัน */
+}
+
+.card.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.left-card .card {
+    width: 510px;
+    height: 310px;
+    margin-right: 40px;
+}
+
+.right-cards .card {
+    width: 510px;
+    height: 310px;
+}
+
+.right-cards:nth-child(2) .card:nth-child(2){
+    width: 350px;
+    height: 310px;
+}
+
+
+.card img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.card-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.card-content p {
+    font-size: 16px;
+    color: #171C18;
+    margin-bottom: 10px;
+    overflow-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+}
+
+.card-footer {
+    font-size: 0.9rem;
+    color: #5F7088;
+}
+
+.navigation-buttons {
+    position: absolute;
+    bottom: 30px;
+    right: 10px;
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+}
+
+.navigation-buttons i {
+    height: 44px;
+    width: 44px;
+    background: #CECECE;
+    border-radius: 50%;
+    font-size: 1.15rem;
+    text-align: center;
+    line-height: 44px;
+    color: #000;
+    cursor: pointer;
+    transition: transform 0.1s linear;
+}
+
+.navigation-buttons i:active {
+    transform: scale(0.9);
+}
+
+.navigation-buttons i:hover {
+    background: #f2f2f2;
+}
+
+@media screen and (min-width: 600px) and (max-width: 1024px) {
+    .wrapper {
+        max-width: 100%;
+        padding: 20px;
+    }
+    .heading {
+        font-size: 28px;
+        text-align: left;
+        margin-bottom: -130px;
+
+    }
+    .slide {
+        flex-direction: row; /* แสดงการ์ดในแนวนอน */
+        align-items: center; /* จัดการ์ดให้อยู่กึ่งกลางในแนวตั้ง */
+        justify-content: center; /* ถ้าต้องการจัดกึ่งกลางในแนวนอนด้วย */
+        height: 800px; /* กำหนดความสูงคงที่ */
+    }
+    .left-card, .right-cards {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .left-card {
+        margin-right: 0;
+    }
+    .right-cards {
+        margin-left: 0;
+    }
+    .left-card .card, .right-cards .card ,.right-cards:nth-child(2) .card:nth-child(2){
+        width: 90%;
+        max-width: none;
+        margin: 20px auto;
+    }
+    .right-cards{
+        gap: 0;
+    }
+
+    .navigation-buttons {
+        bottom: 20px;
+      
+        transform: translateX(-50%);
+    }
+}
+
+/* Media Queries สำหรับหน้าจอขนาดเล็ก */
+@media screen and (max-width: 600px) {
+    body {
+        display: block;
+        margin: 0 20px;
+    }
+    .wrapper {
+        width: 100%;
+        padding: 10px;
+    }
+    .carousel {
+        flex-direction: column;
+        align-items: center;
+    }
+    .slide {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+    }
+    .left-card, .right-cards {
+        width: 100%;
+        margin-right: 0;
+        display: flex;
+        justify-content: center;
+    }
+    .right-cards {
+        display: none;
+    }
+    .left-card {
+        width: 100%;
+    }
+    .card {
+        width: 100%;
+        margin: 10px 0;
+        height: 400px;
+    }
+    .navigation-buttons {
+        position: absolute;
+        bottom: -44px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 5px;
+        right: 0;
+        justify-content: center;
+    }
+    .heading {
+        text-align: left;
+        margin: 20px 0;
+        font-size: 28px;
+    }
+    .left-card .card{
+        width: 100%;
+        height: 400px;
+        margin-right: 0;
+    }
+}
