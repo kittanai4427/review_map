@@ -1,4 +1,4 @@
-// scripts.js
+
 const carousel = document.querySelector(".carousel"),
       arrowIcons = document.querySelectorAll(".navigation-buttons i"),
       slides = carousel.querySelectorAll(".slide");
