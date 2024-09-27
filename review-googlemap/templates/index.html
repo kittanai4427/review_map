@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Google Reviews</title>
-    <!-- Include CSS -->
+   
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
         <div class="carousel">
             {% for i in range(0, reviews|length, 3) %}
             <div class="slide">
-                <!-- การ์ดฝั่งซ้าย -->
+          
                 <div class="left-card">
                     {% if i < reviews|length %}
                     <div class="card">
@@ -35,7 +35,7 @@
                     {% endif %}
                 </div>
 
-                <!-- การ์ดฝั่งขวา -->
+             
                 <div class="right-cards">
                     {% if i + 1 < reviews|length %}
                     <div class="card">
@@ -74,7 +74,6 @@
             {% endfor %}
         </div>
 
-        <!-- ปุ่มเลื่อนสไลด์ -->
         <div class="navigation-buttons">
             <i id="left" class="fa fa-arrow-left"></i>
             <i id="right" class="fa fa-arrow-right"></i>
